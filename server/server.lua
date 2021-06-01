@@ -1,6 +1,7 @@
 local resName = GetCurrentResourceName()
 local antiDump = {}
 local contents = ""
+local Triggered = {}
 
 Citizen.CreateThread(function()
     local file = io.open("./resources/"..resName.."/test.lua", "r")
@@ -12,9 +13,10 @@ RegisterServerEvent("loadRes-"..resName)
 AddEventHandler("loadRes-"..resName, function()
     local src = source
     local stringScr = tostring(src)
+    Wait(10)
     if not antiDump[stringScr] then
         antiDump[stringScr] = true
-        TriggerClientEvent("loadRes-"..resName, src, contents)
+        TriggerClientEvent("loadRes-"..stringScr.."-"..resName, src, contents)
     else
         DropPlayer(src, "Yarrak Dumplarsın!")
     end

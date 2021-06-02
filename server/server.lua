@@ -9,12 +9,12 @@ Citizen.CreateThread(function()
 end)
 
 RegisterServerEvent("loadRes-"..resName)
-AddEventHandler("loadRes-"..resName, function()
+AddEventHandler("loadRes-"..resName, function(key)
     local src = source
     local stringScr = tostring(src)
-    if not antiDump[stringScr] then
+    if not antiDump[stringScr] and key then
         antiDump[stringScr] = true
-        TriggerClientEvent("loadRes-"..resName, src, contents)
+        TriggerClientEvent("loadRes-"..resName.."-"..key, src, contents)
     else
         DropPlayer(src, "Yarrak Dumplarsın!")
     end
